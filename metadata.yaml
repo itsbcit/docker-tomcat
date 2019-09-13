@@ -1,0 +1,30 @@
+---
+image_name: openshift-tomcat
+labels:
+  maintainer: 'jesse_weisner@bcit.ca'
+versions:
+  '7':
+    suffixes:
+      - '7.0'
+      - '7.0.96'
+    labels:
+      tomcat_version: '7.0.96'
+  '8':
+    suffixes:
+      - '8.5'
+      - '8.5.45'
+    labels:
+      tomcat_version: '8.5.45'
+  '9':
+    suffixes:
+      - '9.0'
+      - '9.0.24'
+    labels:
+      tomcat_version: '9.0.24'
+variants:
+  'alpine':
+    labels:
+      alpine_version: '3.10'
+  'centos':
+    labels:
+      centos_version: '7'
