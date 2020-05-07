@@ -1,8 +1,8 @@
-FROM bcit/alpine:3.10
-LABEL maintainer="jesse_weisner@bcit.ca"
-LABEL tomcat_version="7.0.96"
-LABEL alpine_version="3.10"
-LABEL build_id="1568415301"
+FROM bcit/alpine:3.11
+LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
+LABEL tomcat_version="7.0.103"
+LABEL alpine_version="3.11"
+LABEL build_id="1588890525"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -13,16 +13,32 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD http://us.mirrors.quenda.co/apache/tomcat/tomcat-7/v7.0.96/bin/apache-tomcat-7.0.96.tar.gz /usr/local/tomcat/
+ADD http://us.mirrors.quenda.co/apache/tomcat/tomcat-7/v7.0.103/bin/apache-tomcat-7.0.103.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-7.0.96.tar.gz \
- && rm -f apache-tomcat-7.0.96.tar.gz \
- && mv apache-tomcat-7.0.96/* . \
- && rmdir apache-tomcat-7.0.96
+RUN tar zxf apache-tomcat-7.0.103.tar.gz \
+ && rm -f apache-tomcat-7.0.103.tar.gz \
+ && mv apache-tomcat-7.0.103/* . \
+ && rmdir apache-tomcat-7.0.103
+
+ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/server.xml /usr/local/tomcat/conf/
 
 RUN apk add --no-cache \
-      openjdk8 \
+      openjdk8
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
       tomcat-native
+
+RUN mkdir /application /config \
+ && chown root:root \
+        /application \
+        /config \
+ && chmod 755 /config \
+ && chown -R root:root /usr/local/tomcat/ \
+ && find /usr/local/tomcat/conf -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/conf -type f -exec chmod 0664 {} \;
+
+WORKDIR /application
+ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/ROOT/ping.jsp ROOT/
+ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/ROOT/index.html ROOT/
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
