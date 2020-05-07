@@ -28,3 +28,7 @@ variants:
   'centos':
     labels:
       centos_version: '7'
+files:
+  - 'server.xml'
+  - 'index.html'
+  - 'ping.jsp'

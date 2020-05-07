@@ -2,7 +2,7 @@ FROM bcit/alpine:3.11
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL tomcat_version="7.0.103"
 LABEL alpine_version="3.11"
-LABEL build_id="1588890525"
+LABEL build_id="1588892316"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -20,7 +20,7 @@ RUN tar zxf apache-tomcat-7.0.103.tar.gz \
  && mv apache-tomcat-7.0.103/* . \
  && rmdir apache-tomcat-7.0.103
 
-ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/server.xml /usr/local/tomcat/conf/
+ADD server.xml /usr/local/tomcat/conf/
 
 RUN apk add --no-cache \
       openjdk8
@@ -37,8 +37,8 @@ RUN mkdir /application /config \
  && find /usr/local/tomcat/conf -type f -exec chmod 0664 {} \;
 
 WORKDIR /application
-ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/ROOT/ping.jsp ROOT/
-ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/ROOT/index.html ROOT/
+ADD ping.jsp ROOT/
+ADD index.html ROOT/
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
