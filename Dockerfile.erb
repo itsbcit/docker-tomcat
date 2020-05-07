@@ -22,9 +22,12 @@ RUN tar zxf apache-tomcat-<%= image.labels['tomcat_version'] %>.tar.gz \
  && mv apache-tomcat-<%= image.labels['tomcat_version'] %>/* . \
  && rmdir apache-tomcat-<%= image.labels['tomcat_version'] %>
 
+ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/server.xml /usr/local/tomcat/conf/
+
 <% if image.variant == 'alpine' -%>
 RUN apk add --no-cache \
-      openjdk8 \
+      openjdk8
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
       tomcat-native
 <% end -%>
 <% if image.variant == 'centos' -%>
@@ -36,6 +39,19 @@ RUN rm -rf /var/cache/yum/* \
       java-1.8.0-openjdk-devel \
       tomcat-native
 <% end -%>
+
+RUN mkdir /application /config \
+ && chown root:root \
+        /application \
+        /config \
+ && chmod 755 /config \
+ && chown -R root:root /usr/local/tomcat/ \
+ && find /usr/local/tomcat/conf -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/conf -type f -exec chmod 0664 {} \;
+
+WORKDIR /application
+ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/ROOT/ping.jsp ROOT/
+ADD https://raw.githubusercontent.com/itsbcit/openshift-tomcat/master/files/ROOT/index.html ROOT/
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
