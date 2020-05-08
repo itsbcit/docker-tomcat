@@ -32,3 +32,4 @@ files:
   - 'server.xml'
   - 'index.html'
   - 'ping.jsp'
+  - '50-copy-config.sh'
