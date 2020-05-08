@@ -2,7 +2,7 @@ FROM bcit/alpine:3.11
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL tomcat_version="8.5.54"
 LABEL alpine_version="3.11"
-LABEL build_id="1588892316"
+LABEL build_id="1588981902"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -20,7 +20,9 @@ RUN tar zxf apache-tomcat-8.5.54.tar.gz \
  && mv apache-tomcat-8.5.54/* . \
  && rmdir apache-tomcat-8.5.54
 
-ADD server.xml /usr/local/tomcat/conf/
+ADD server.xml    /usr/local/tomcat/conf/
+ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
+ADD index.html    /usr/local/tomcat/webapps/ROOTping/
 
 RUN apk add --no-cache \
       openjdk8
@@ -35,6 +37,8 @@ RUN mkdir /application /config \
  && chown -R root:root /usr/local/tomcat/ \
  && find /usr/local/tomcat/conf -type d -exec chmod 0775 {} \; \
  && find /usr/local/tomcat/conf -type f -exec chmod 0664 {} \;
+
+COPY 50-copy-config.sh /docker-entrypoint.d/ 
 
 WORKDIR /application
 ADD ping.jsp ROOT/

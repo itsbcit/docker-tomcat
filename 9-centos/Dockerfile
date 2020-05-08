@@ -2,7 +2,7 @@ FROM bcit/centos:7
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL tomcat_version="9.0.34"
 LABEL centos_version="7"
-LABEL build_id="1588892316"
+LABEL build_id="1588981902"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -20,7 +20,9 @@ RUN tar zxf apache-tomcat-9.0.34.tar.gz \
  && mv apache-tomcat-9.0.34/* . \
  && rmdir apache-tomcat-9.0.34
 
-ADD server.xml /usr/local/tomcat/conf/
+ADD server.xml    /usr/local/tomcat/conf/
+ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
+ADD index.html    /usr/local/tomcat/webapps/ROOTping/
 
 RUN rm -rf /var/cache/yum/* \
  && echo "exclude=mirror.layeronline.com" >> /etc/yum/pluginconf.d/fastestmirror.conf \
@@ -38,6 +40,8 @@ RUN mkdir /application /config \
  && chown -R root:root /usr/local/tomcat/ \
  && find /usr/local/tomcat/conf -type d -exec chmod 0775 {} \; \
  && find /usr/local/tomcat/conf -type f -exec chmod 0664 {} \;
+
+COPY 50-copy-config.sh /docker-entrypoint.d/ 
 
 WORKDIR /application
 ADD ping.jsp ROOT/
