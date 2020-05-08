@@ -2,7 +2,7 @@ FROM bcit/centos:7
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL tomcat_version="7.0.103"
 LABEL centos_version="7"
-LABEL build_id="1588981902"
+LABEL build_id="1588982000"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH

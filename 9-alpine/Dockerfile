@@ -2,7 +2,7 @@ FROM bcit/alpine:3.11
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL tomcat_version="9.0.34"
 LABEL alpine_version="3.11"
-LABEL build_id="1588981902"
+LABEL build_id="1588982000"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
