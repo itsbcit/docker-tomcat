@@ -1,8 +1,8 @@
-FROM bcit/centos:7
+FROM bcit.io/centos:7
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
-LABEL tomcat_version="9.0.34"
+LABEL build_id="1647980422"
+LABEL tomcat_version="9.0.60"
 LABEL centos_version="7"
-LABEL build_id="1588982000"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -13,12 +13,12 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD http://us.mirrors.quenda.co/apache/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.60/bin/apache-tomcat-9.0.60.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-9.0.34.tar.gz \
- && rm -f apache-tomcat-9.0.34.tar.gz \
- && mv apache-tomcat-9.0.34/* . \
- && rmdir apache-tomcat-9.0.34
+RUN tar zxf apache-tomcat-9.0.60.tar.gz \
+ && rm -f apache-tomcat-9.0.60.tar.gz \
+ && mv apache-tomcat-9.0.60/* . \
+ && rmdir apache-tomcat-9.0.60
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/

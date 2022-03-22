@@ -1,2 +1,2 @@
-# openshift-tomcat
+# docker-tomcat
 Tomcat running in OpenShift

@@ -1,10 +1,8 @@
-<% if image.variant == 'alpine' -%>
-FROM bcit.io/alpine:<%= image.labels['alpine_version'] %>
-<% end -%>
-<% if image.variant == 'centos' -%>
-FROM bcit.io/centos:<%= image.labels['centos_version'] %>
-<% end -%>
-<%= snippet('labels', binding) -%>
+FROM bcit.io/centos:7
+LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
+LABEL build_id="1647980422"
+LABEL tomcat_version="10.0.18"
+LABEL centos_version="7"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -15,24 +13,17 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD https://dlcdn.apache.org/tomcat/tomcat-<%= image.version %>/v<%= image.labels['tomcat_version'] %>/bin/apache-tomcat-<%= image.labels['tomcat_version'] %>.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.18/bin/apache-tomcat-10.0.18.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-<%= image.labels['tomcat_version'] %>.tar.gz \
- && rm -f apache-tomcat-<%= image.labels['tomcat_version'] %>.tar.gz \
- && mv apache-tomcat-<%= image.labels['tomcat_version'] %>/* . \
- && rmdir apache-tomcat-<%= image.labels['tomcat_version'] %>
+RUN tar zxf apache-tomcat-10.0.18.tar.gz \
+ && rm -f apache-tomcat-10.0.18.tar.gz \
+ && mv apache-tomcat-10.0.18/* . \
+ && rmdir apache-tomcat-10.0.18
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
 ADD index.html    /usr/local/tomcat/webapps/ROOTping/
 
-<% if image.variant == 'alpine' -%>
-RUN apk add --no-cache \
-      openjdk8
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-      tomcat-native
-<% end -%>
-<% if image.variant == 'centos' -%>
 RUN rm -rf /var/cache/yum/* \
  && echo "exclude=mirror.layeronline.com" >> /etc/yum/pluginconf.d/fastestmirror.conf \
  && yum -y --setopt tsflags=nodocs --setopt timeout=5 install \
@@ -40,7 +31,6 @@ RUN rm -rf /var/cache/yum/* \
  && yum -y --setopt tsflags=nodocs --setopt timeout=5 install \
       java-1.8.0-openjdk-devel \
       tomcat-native
-<% end -%>
 
 RUN mkdir /application /config \
  && chown root:root \

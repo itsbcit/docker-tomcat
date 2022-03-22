@@ -2,7 +2,7 @@ FROM bcit/centos:7
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL tomcat_version="7.0.103"
 LABEL centos_version="7"
-LABEL build_id="1588982000"
+LABEL build_id="1647964102"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -13,7 +13,7 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD http://us.mirrors.quenda.co/apache/tomcat/tomcat-7/v7.0.103/bin/apache-tomcat-7.0.103.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-7/v7.0.103/bin/apache-tomcat-7.0.103.tar.gz /usr/local/tomcat/
 
 RUN tar zxf apache-tomcat-7.0.103.tar.gz \
  && rm -f apache-tomcat-7.0.103.tar.gz \
