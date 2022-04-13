@@ -1,7 +1,7 @@
 FROM bcit.io/centos:7
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
-LABEL build_id="1647980422"
-LABEL tomcat_version="8.5.77"
+LABEL build_id="1649868649"
+LABEL tomcat_version="8.5.78"
 LABEL centos_version="7"
 
 ENV CATALINA_HOME /usr/local/tomcat
@@ -13,12 +13,12 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.77/bin/apache-tomcat-8.5.77.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.78/bin/apache-tomcat-8.5.78.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-8.5.77.tar.gz \
- && rm -f apache-tomcat-8.5.77.tar.gz \
- && mv apache-tomcat-8.5.77/* . \
- && rmdir apache-tomcat-8.5.77
+RUN tar zxf apache-tomcat-8.5.78.tar.gz \
+ && rm -f apache-tomcat-8.5.78.tar.gz \
+ && mv apache-tomcat-8.5.78/* . \
+ && rmdir apache-tomcat-8.5.78
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
@@ -37,8 +37,12 @@ RUN mkdir /application /config \
         /application \
         /config \
  && chmod 755 /config \
+ && chmod 775 /application \
  && chown -R root:root /usr/local/tomcat/ \
  && find /usr/local/tomcat/conf -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/logs -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/work -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/temp -type d -exec chmod 0775 {} \; \
  && find /usr/local/tomcat/conf -type f -exec chmod 0664 {} \;
 
 COPY 50-copy-config.sh /docker-entrypoint.d/ 

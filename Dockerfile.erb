@@ -47,8 +47,12 @@ RUN mkdir /application /config \
         /application \
         /config \
  && chmod 755 /config \
+ && chmod 775 /application \
  && chown -R root:root /usr/local/tomcat/ \
  && find /usr/local/tomcat/conf -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/logs -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/work -type d -exec chmod 0775 {} \; \
+ && find /usr/local/tomcat/temp -type d -exec chmod 0775 {} \; \
  && find /usr/local/tomcat/conf -type f -exec chmod 0664 {} \;
 
 COPY 50-copy-config.sh /docker-entrypoint.d/ 
