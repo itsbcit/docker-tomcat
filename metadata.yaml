@@ -8,21 +8,21 @@ versions:
   '8':
     suffixes:
       - '8.5'
-      - '8.5.78'
+      - '8.5.81'
     labels:
-      tomcat_version: '8.5.78'
+      tomcat_version: '8.5.81'
   '9':
     suffixes:
       - '9.0'
-      - '9.0.62'
+      - '9.0.64'
     labels:
-      tomcat_version: '9.0.62'
+      tomcat_version: '9.0.64'
   '10':
     suffixes:
       - '10.0'
-      - '10.0.20'
+      - '10.0.22'
     labels:
-      tomcat_version: '10.0.20'
+      tomcat_version: '10.0.22'
 variants:
   'alpine':
     labels:

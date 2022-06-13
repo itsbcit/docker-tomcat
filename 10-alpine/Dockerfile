@@ -1,7 +1,7 @@
 FROM bcit.io/alpine:3.15
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
-LABEL build_id="1649868649"
-LABEL tomcat_version="10.0.20"
+LABEL build_id="1655150995"
+LABEL tomcat_version="10.0.22"
 LABEL alpine_version="3.15"
 
 ENV CATALINA_HOME /usr/local/tomcat
@@ -13,12 +13,12 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.20/bin/apache-tomcat-10.0.20.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.22/bin/apache-tomcat-10.0.22.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-10.0.20.tar.gz \
- && rm -f apache-tomcat-10.0.20.tar.gz \
- && mv apache-tomcat-10.0.20/* . \
- && rmdir apache-tomcat-10.0.20
+RUN tar zxf apache-tomcat-10.0.22.tar.gz \
+ && rm -f apache-tomcat-10.0.22.tar.gz \
+ && mv apache-tomcat-10.0.22/* . \
+ && rmdir apache-tomcat-10.0.22
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
