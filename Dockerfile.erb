@@ -28,8 +28,7 @@ ADD index.html    /usr/local/tomcat/webapps/ROOTping/
 
 <% if image.variant == 'alpine' -%>
 RUN apk add --no-cache \
-      openjdk8
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+      openjdk8 \
       tomcat-native
 <% end -%>
 <% if image.variant == 'centos' -%>
