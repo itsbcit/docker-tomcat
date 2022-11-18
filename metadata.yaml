@@ -8,28 +8,29 @@ versions:
   '8':
     suffixes:
       - '8.5'
-      - '8.5.81'
+      - '8.5.83'
     labels:
-      tomcat_version: '8.5.81'
+      tomcat_version: '8.5.83'
   '9':
     suffixes:
       - '9.0'
-      - '9.0.64'
+      - '9.0.69'
     labels:
-      tomcat_version: '9.0.64'
+      tomcat_version: '9.0.69'
   '10':
     suffixes:
       - '10.0'
-      - '10.0.22'
+      - '10.0.27'
     labels:
-      tomcat_version: '10.0.22'
+      tomcat_version: '10.0.27'
+      # 10.1+ requires java 11
 variants:
   'alpine':
     labels:
-      alpine_version: '3.15'
+      alpine_version: '3.16'
   'centos':
     labels:
-      centos_version: '7'
+      centos_version: '9'
 files:
   - 'server.xml'
   - 'index.html'
