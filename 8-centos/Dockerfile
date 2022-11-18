@@ -1,8 +1,7 @@
 FROM bcit.io/centos:7
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
-LABEL build_id="1655150995"
-LABEL tomcat_version="8.5.81"
-LABEL centos_version="7"
+LABEL build_id="1668809761"
+LABEL tomcat_version="8.5.83"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -13,12 +12,12 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.81/bin/apache-tomcat-8.5.81.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.83/bin/apache-tomcat-8.5.83.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-8.5.81.tar.gz \
- && rm -f apache-tomcat-8.5.81.tar.gz \
- && mv apache-tomcat-8.5.81/* . \
- && rmdir apache-tomcat-8.5.81
+RUN tar zxf apache-tomcat-8.5.83.tar.gz \
+ && rm -f apache-tomcat-8.5.83.tar.gz \
+ && mv apache-tomcat-8.5.83/* . \
+ && rmdir apache-tomcat-8.5.83
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/

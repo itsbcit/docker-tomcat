@@ -1,8 +1,8 @@
-FROM bcit.io/alpine:3.15
+FROM bcit.io/alpine:3.16
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
-LABEL build_id="1655150995"
-LABEL tomcat_version="9.0.64"
-LABEL alpine_version="3.15"
+LABEL build_id="1668809761"
+LABEL tomcat_version="9.0.69"
+LABEL alpine_version="3.16"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -13,20 +13,19 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.69/bin/apache-tomcat-9.0.69.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-9.0.64.tar.gz \
- && rm -f apache-tomcat-9.0.64.tar.gz \
- && mv apache-tomcat-9.0.64/* . \
- && rmdir apache-tomcat-9.0.64
+RUN tar zxf apache-tomcat-9.0.69.tar.gz \
+ && rm -f apache-tomcat-9.0.69.tar.gz \
+ && mv apache-tomcat-9.0.69/* . \
+ && rmdir apache-tomcat-9.0.69
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
 ADD index.html    /usr/local/tomcat/webapps/ROOTping/
 
 RUN apk add --no-cache \
-      openjdk8
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+      openjdk8 \
       tomcat-native
 
 RUN mkdir /application /config \

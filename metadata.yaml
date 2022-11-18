@@ -29,8 +29,9 @@ variants:
     labels:
       alpine_version: '3.16'
   'centos':
+  'alma':
     labels:
-      centos_version: '9'
+      alma_version: '9'
 files:
   - 'server.xml'
   - 'index.html'

@@ -2,7 +2,10 @@
 FROM bcit.io/alpine:<%= image.labels['alpine_version'] %>
 <% end -%>
 <% if image.variant == 'centos' -%>
-FROM bcit.io/centos:<%= image.labels['centos_version'] %>
+FROM bcit.io/centos:7
+<% end -%>
+<% if image.variant == 'alma' -%>
+FROM bcit.io/almalinux:<%= image.labels['alma_version'] %>
 <% end -%>
 <%= snippet('labels', binding) -%>
 

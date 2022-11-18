@@ -1,8 +1,7 @@
 FROM bcit.io/centos:7
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
-LABEL build_id="1655150995"
-LABEL tomcat_version="10.0.22"
-LABEL centos_version="7"
+LABEL build_id="1668809761"
+LABEL tomcat_version="10.0.27"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -13,12 +12,12 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.22/bin/apache-tomcat-10.0.22.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-10.0.22.tar.gz \
- && rm -f apache-tomcat-10.0.22.tar.gz \
- && mv apache-tomcat-10.0.22/* . \
- && rmdir apache-tomcat-10.0.22
+RUN tar zxf apache-tomcat-10.0.27.tar.gz \
+ && rm -f apache-tomcat-10.0.27.tar.gz \
+ && mv apache-tomcat-10.0.27/* . \
+ && rmdir apache-tomcat-10.0.27
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/

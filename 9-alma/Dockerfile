@@ -1,8 +1,8 @@
-FROM bcit.io/alpine:3.16
+FROM bcit.io/almalinux:9
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL build_id="1668809761"
-LABEL tomcat_version="10.0.27"
-LABEL alpine_version="3.16"
+LABEL tomcat_version="9.0.69"
+LABEL alma_version="9"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -13,20 +13,17 @@ RUN mkdir -p /usr/local/tomcat \
  && chown 0:0 /usr/local/tomcat \
  && chmod 775 /usr/local/tomcat
 
-ADD https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.27/bin/apache-tomcat-10.0.27.tar.gz /usr/local/tomcat/
+ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.69/bin/apache-tomcat-9.0.69.tar.gz /usr/local/tomcat/
 
-RUN tar zxf apache-tomcat-10.0.27.tar.gz \
- && rm -f apache-tomcat-10.0.27.tar.gz \
- && mv apache-tomcat-10.0.27/* . \
- && rmdir apache-tomcat-10.0.27
+RUN tar zxf apache-tomcat-9.0.69.tar.gz \
+ && rm -f apache-tomcat-9.0.69.tar.gz \
+ && mv apache-tomcat-9.0.69/* . \
+ && rmdir apache-tomcat-9.0.69
 
 ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
 ADD index.html    /usr/local/tomcat/webapps/ROOTping/
 
-RUN apk add --no-cache \
-      openjdk8 \
-      tomcat-native
 
 RUN mkdir /application /config \
  && chown root:root \

@@ -1,8 +1,8 @@
-FROM bcit.io/alpine:3.16
+FROM bcit.io/almalinux:9
 LABEL maintainer="jesse_weisner@bcit.ca, chriswood.ca@gmail.com"
 LABEL build_id="1668809761"
 LABEL tomcat_version="10.0.27"
-LABEL alpine_version="3.16"
+LABEL alma_version="9"
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -24,9 +24,6 @@ ADD server.xml    /usr/local/tomcat/conf/
 ADD ping.jsp      /usr/local/tomcat/webapps/ROOTping/
 ADD index.html    /usr/local/tomcat/webapps/ROOTping/
 
-RUN apk add --no-cache \
-      openjdk8 \
-      tomcat-native
 
 RUN mkdir /application /config \
  && chown root:root \
